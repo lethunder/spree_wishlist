@@ -31,7 +31,7 @@
     <% if @wishlist.user == spree_current_user %>
       <td>
         <p><%= link_to Spree.t(:remove_from_wishlist), wish, method: :delete, class: 'btn btn-danger' %></p>
-        <%= form_for :order, url: populate_orders_url do |f| %>
+        <%= form_for :order, url: "#" do |f| %>
           <%= hidden_field_tag 'variant_id', variant.id, size: 3 %>
           <%= Spree.t(:quantity) %>
           <%= number_field_tag 'quantity', wish.quantity, size: 3 %>

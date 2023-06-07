@@ -1,11 +1,17 @@
 <% if spree_current_user %>
-  <div id="wishlist-form">
-    <%= form_for Spree::WishedProduct.new do |f| %>
-      <%= f.hidden_field :variant_id, value: @product.master.id %>
-      <%= f.hidden_field :quantity %>
-      <button type="submit" class="btn btn-info">
-        <%= Spree.t(:add_to_wishlist) %>
-      </button>
+  <% if spree_current_user.wishlist.include?(product.master.id) %>
+    <%= link_to remove_item_to_wishlist_path(product.master.id), method: :delete, remote: true, class: "ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500 display-in-target-container-js", :"data-remote-target" => '#wishlist-container-js' do %>
+      <svg class="h-6 w-6 flex-shrink-0 bg-yellow-400 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
+      </svg>
+      <span class="sr-only"><%= Spree.t(:add_to_wishlist) %></span>
     <% end %>
-  </div>
+  <% else %>
+    <%= link_to add_item_to_wishlist_path(variant_id: product.master.id, quantity: 1), method: :post, remote: true, class: "ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500 display-in-target-container-js", :"data-remote-target" => '#wishlist-container-js' do %>
+      <svg class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
+      </svg>
+      <span class="sr-only"><%= Spree.t(:add_to_wishlist) %></span>
+    <% end %>
+  <% end %>
 <% end %>
