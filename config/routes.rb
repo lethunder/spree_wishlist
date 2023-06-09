@@ -2,6 +2,7 @@ Spree::Core::Engine.add_routes do
   resources :wishlists do
     collection do
       post "/add_item_to_wishlist", to: "wishlists#add_item", as: "add_item"
+      delete "/remove_item", to: "wishlists#remove_item", as: "remove_item"
     end
   end
   resources :wished_products, only: [:create, :update, :destroy]

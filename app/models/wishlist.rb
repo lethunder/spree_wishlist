@@ -11,11 +11,10 @@ module Spree::UserDecorator
   end
 
   def wishlist
-    if wishlists.where(is_default: true).exists?
-      default_wishlist = wishlists.where(is_default: true).first
-    else
-      default_wishlist = wishlists.create(name: Spree.t(:default_wishlist_name), is_default: true)
-    end
+    default_wishlist = wishlists.where(is_default: true).first
+    default_wishlist ||= wishlists.first
+    default_wishlist ||= wishlists.create(name: Spree.t(:default_wishlist_name), is_default: true)
+    default_wishlist.update_attribute(:is_default, true) unless default_wishlist.is_default?
     default_wishlist
   end
 end
