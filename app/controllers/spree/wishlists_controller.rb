@@ -48,12 +48,15 @@ class Spree::WishlistsController < Spree::BaseController
   end
 
   def remove_item
-
     wished_item = @wishlist.wished_items.find_by(variant_id: params[:variant_id])
     authorize! :destroy, wished_item
 
     wished_item.destroy
-    render partial: "spree/products/wishlist_form", locals: {product: wished_item.product}, layout: false, status: 200
+    if params["view"]
+      render partial: "spree/orders/wishlists", layout: false, status: 200
+    else
+      render partial: "spree/products/wishlist_form", locals: {product: wished_item.product}, layout: false, status: 200
+    end
   end
 
   private
