@@ -23,23 +23,13 @@
             <%= display_price(product) %>
           </p>
         </div>
-        <p class="flex items-center space-x-2 text-sm text-gray-700 mt-3 mb-1">
-          <% if product.in_stock? %>
-            <%= render 'spree/products/cart_form_availability_templates', type: 'in-stock' %>
-          <% else %>
-            <%= render 'cart_form_availability_templates', type: 'out-of-stock' %>
-          <% end %>
-        </p>
-        <div class="mt-4 flex sm:max-w-md">
-          <div class="w-full">
-            <a href="#" class="relative flex items-center justify-center rounded-md border border-transparent h-full bg-gray-100 py-1 text-sm font-medium text-gray-900 hover:bg-gray-200">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-
-              Add to bag
-              <span class="sr-only">, Zip High Wall Tote</span>
-            </a>
+        <div class="mt-2 flex sm:max-w-md">
+          <div class="w-full flex items-center">
+            <% if product.in_stock? %>
+              <%= render 'spree/products/cart_form_availability_templates', type: 'in-stock' %>
+            <% else %>
+              <%= render 'cart_form_availability_templates', type: 'out-of-stock' %>
+            <% end %>
           </div>
           <div class="ml-4 flex-shrink-0 flex">
             <%= link_to remove_item_wishlists_path(variant_id: product.master.id, view: "cart"), method: :delete, remote: true, class: "ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500 display-in-target-container-js", :"data-remote-target" => '#wishlist-container-js' do %>
